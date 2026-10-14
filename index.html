@@ -103,8 +103,8 @@
                         <div class="progress-bar-bg"><div class="progress-fill" id="bar-${index}"></div></div>
                     </div>
                     <div class="actions-container">
-                        <div class="btn-download" onclick="startDownload('${app.link}', ${index})">
-                            <img src="https://images.icon-icons.com/1182/PNG/96/1490129349-rounded05_82190.png" alt="تحميل">
+                        <div class="btn-download" onclick="startDownload('${app.link}', ${index})" title="نسخ الرابط">
+                            <img src="https://images.icon-icons.com/935/PNG/96/copy-two-paper-sheets-interface-symbol_icon-icons.com_73283.png" alt="نسخ">
                         </div>
                     </div>
                     ${app.code ? `
@@ -125,7 +125,7 @@
                 if (width >= 100) {
                     clearInterval(interval);
                     box.style.display = 'none';
-                    window.location.href = url;
+                    navigator.clipboard.writeText(url).then(() => alert("تم نسخ الرابط: " + url));
                 } else {
                     width++;
                     bar.style.width = width + '%';
