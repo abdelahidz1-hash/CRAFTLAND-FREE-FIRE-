@@ -106,7 +106,7 @@
                         </div>
                     </div>
                     ${app.code ? `
-                    <div class="cod-container">
+                    <div class="cod-container" style="display: flex;">
                         <span>COD : ${app.code}</span>
                         <img src="https://images.icon-icons.com/935/PNG/96/copy-two-paper-sheets-interface-symbol_icon-icons.com_73283.png" class="copy-btn" onclick="copyToClipboard('${app.code}')">
                     </div>` : ''}
@@ -138,8 +138,9 @@
         }
 
         function copyToClipboard(text) {
-            navigator.clipboard.writeTest(text).then(() => alert("تم نسخ الكود: " + text));
+            navigator.clipboard.writeText(text).then(() => alert("تم نسخ الكود: " + text));
         }
     </script>
 </body>
-</html>
+                    </html>
+    
