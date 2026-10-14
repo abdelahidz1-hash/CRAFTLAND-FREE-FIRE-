@@ -1,2 +1,9 @@
 [
-  {"name": "الهروب من السجن", "icon": "https://ibb.co/TMNBjSNn", "link": "#M06X4W"},
+  {
+    "name": "الهروب من السجن",
+    "description": "تصميم خريطة كرافتلاند ممتعة ومثيرة",
+    "icon": "https://i.ibb.co/TMNBjSNn/image.png",
+    "link": "https://example.com",
+    "code": "M06X4W"
+  }
+]
