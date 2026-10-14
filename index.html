@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAFTLAND FREE FIRE </title>
+    <title>MAP FREE FIRE </title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,11 +34,11 @@
         .app-icon img { width: 100%; height: auto; object-fit: cover; display: block; }
         
         /* شريط المعلومات فوق وتحت الصورة مثل اللعبة */
-        .game-badge { position: absolute; top: 10px; right: 10px; background: #00875a; color: #fff; font-size: 0.75rem; padding: 3px 10px; border-radius: 4px; font-weight: bold; }
+        .game-badge { position: absolute; top: 10px; right: 10px; background: #00875a; color: #fff; font-size: 0.75rem; padding: 3px 10px; border-radius: 4px; font-weight: bold; display: none; }
         .game-info-overlay { background: rgba(20, 20, 20, 0.9); border: 1px solid #333; border-radius: 6px; padding: 8px 12px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 5px; }
         .game-title-row { font-size: 1rem; font-weight: bold; color: #fff; text-align: right; }
         .game-sub-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #aaa; }
-        .game-stats { display: flex; align-items: center; gap: 5px; color: #ff7700; font-weight: bold; }
+        .game-stats { display: flex; align-items: center; gap: 5px; color: #ff7700; font-weight: bold; display: none; }
 
         .app-details h3 { display: none; } /* تم الاستغناء عنها لصالح التصميم الجديد المدمج */
         .app-description { font-size: 0.8rem; color: #aaa; margin-bottom: 10px; text-align: right; }
@@ -104,16 +104,16 @@
                 container.innerHTML += `
                 <div class="app-card" id="card-${index}">
                     <div class="app-icon">
-                        <div class="game-badge">إطلاق النار</div>
+                        <div class="game-badge"></div>
                         <img src="${app.icon}" alt="">
                     </div>
                     
                     <div class="game-info-overlay">
                         <div class="game-title-row">${app.name}</div>
                         <div class="game-sub-row">
-                            <span>تصميم مميز</span>
+                            <span></span>
                             <div class="game-stats">
-                                <span>🔥 13.8K</span>
+                                <span></span>
                             </div>
                         </div>
                     </div>
@@ -144,4 +144,5 @@
         }
     </script>
 </body>
-</html>
+    </html>
+    
