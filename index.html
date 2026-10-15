@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAFTLANd ff  </title>
+    <title>CRAFTLAND FF  </title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -156,11 +156,10 @@
                         <div class="progress-bar-bg"><div class="progress-fill" id="bar-${index}"></div></div>
                     </div>
 
-                    ${app.code ? `
                     <div class="cod-container">
-                        <span>COD : ${app.code}</span>
-                        <img src="${originalCopyIcon}" class="copy-btn" id="copy-icon-${index}" onclick="copyToClipboard('${app.code}',${index})">
-                    </div>` : ''}
+                        <span>COD : ${app.code ? app.code : ''}</span>
+                        <img src="${originalCopyIcon}" class="copy-btn" id="copy-icon-${index}" onclick="copyToClipboard('${app.code || ''}',${index})">
+                    </div>
                 </div>`;
             });
         }
@@ -197,5 +196,5 @@
         }
     </script>
 </body>
-                    </html>
+    </html>
     
