@@ -192,19 +192,19 @@
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
             
             const filtered = allItems.filter(item => {
-                // دمج اسم العنصر، الوصف، أو أي خاصية تصنيف إن وجدت للبحث الشامل
                 const itemName = (item.name || "").toLowerCase();
                 const itemDesc = (item.description || "").toLowerCase();
                 const itemCat = (item.category || item.tag || "").toLowerCase();
                 const fullText = `${itemName} ${itemDesc} ${itemCat}`;
 
-                // فحص مطابقة البحث النصي
                 const matchesSearch = fullText.includes(searchTerm);
 
-                // فحص مطابقة التصنيف المختار
                 let matchesCategory = true;
                 if (currentCategory !== 'all') {
-                    matchesCategory = fullText.includes(currentCategory.toLowerCase());
+                    const targetCategory = currentCategory.toLowerCase();
+                    matchesCategory = (item.category && item.category.toLowerCase() === targetCategory) ||
+                                      (item.tag && item.tag.toLowerCase() === targetCategory) ||
+                                      fullText.includes(targetCategory);
                 }
 
                 return matchesSearch && matchesCategory;
