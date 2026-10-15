@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAFTLANd FF  </title>
+    <title>CRAFTLAND FF  </title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +25,14 @@
         header h1 { font-size: 1rem; letter-spacing: 1px; color: #fff; font-weight: bold; display: flex; align-items: center; gap: 8px; }
         header h1 img { width: 19px; height: 19px; object-fit: contain; }
         .controls { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
-        #search-input { width: 10px; padding: 10px; border-radius: 10px; border: 1px solid #333; background: #111; color: #fff; margin-bottom: 10px; width: 100%; }
+        #search-input { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #333; background: #111; color: #fff; margin-bottom: 15px; }
+        
+        /* تصميم أزرار التصنيفات (Tabs) */
+        .categories-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+        .categories-tabs::-webkit-scrollbar { display: none; }
+        .cat-btn { background: #111; border: 1px solid #333; color: #aaa; padding: 6px 14px; border-radius: 8px; font-size: 0.8rem; cursor: pointer; white-space: nowrap; transition: 0.2s; font-family: 'Cairo', sans-serif; }
+        .cat-btn.active, .cat-btn:hover { background: #ff4500; color: #fff; border-color: #ff4500; font-weight: bold; }
+
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         
@@ -91,6 +98,18 @@
 
     <div class="controls">
         <input type="text" id="search-input" placeholder="ابحث عن خريطة أو تصميم كرافتلاند..." onkeyup="filterContent()">
+        
+        <!-- أزرار التصنيفات (Tabs) -->
+        <div class="categories-tabs">
+            <button class="cat-btn active" onclick="filterByCategory('all', this)">الكل</button>
+            <button class="cat-btn" onclick="filterByCategory('2vs2', this)">2VS2</button>
+            <button class="cat-btn" onclick="filterByCategory('1vs1', this)">1VS1</button>
+            <button class="cat-btn" onclick="filterByCategory('باركور', this)">باركور</button>
+            <button class="cat-btn" onclick="filterByCategory('تدريب', this)">تدريب</button>
+            <button class="cat-btn" onclick="filterByCategory('4vs4', this)">4VS4</button>
+            <button class="cat-btn" onclick="filterByCategory('clash squad', this)">Clash Squad</button>
+            <button class="cat-btn" onclick="filterByCategory('bermuda', this)">Bermuda</button>
+        </div>
     </div>
 
     <div class="container">
@@ -100,6 +119,7 @@
 
     <script>
         let allItems = [];
+        let currentCategory = 'all';
         const originalCopyIcon = "https://images.icon-icons.com/935/PNG/96/copy-two-paper-sheets-interface-symbol_icon-icons.com_73283.png";
         const checkCopyIcon = "https://images.icon-icons.com/1206/PNG/96/1491254409-truecheckacceptapprove_82933.png";
         const likeIconUrl = "https://raw.githubusercontent.com/0xme/ff-resources/refs/heads/main/pngs/300x300/FF_UI_Emoji_yf_17.png";
@@ -154,9 +174,42 @@
             fetchAllReactions();
         }
 
+        function filterByCategory(category, btnElement) {
+            currentCategory = category;
+            
+            // تحديث تصميم الأزرار النشطة
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            if(btnElement) btnElement.classList.add('active');
+
+            applyFilters();
+        }
+
         function filterContent() {
+            applyFilters();
+        }
+
+        function applyFilters() {
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
-            const filtered = allItems.filter(item => item.name.toLowerCase().includes(searchTerm));
+            
+            const filtered = allItems.filter(item => {
+                // دمج اسم العنصر، الوصف، أو أي خاصية تصنيف إن وجدت للبحث الشامل
+                const itemName = (item.name || "").toLowerCase();
+                const itemDesc = (item.description || "").toLowerCase();
+                const itemCat = (item.category || item.tag || "").toLowerCase();
+                const fullText = `${itemName} ${itemDesc} ${itemCat}`;
+
+                // فحص مطابقة البحث النصي
+                const matchesSearch = fullText.includes(searchTerm);
+
+                // فحص مطابقة التصنيف المختار
+                let matchesCategory = true;
+                if (currentCategory !== 'all') {
+                    matchesCategory = fullText.includes(currentCategory.toLowerCase());
+                }
+
+                return matchesSearch && matchesCategory;
+            });
+
             renderItems(filtered);
         }
 
