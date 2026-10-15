@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAFTLANd FF  </title>
+    <title>CRAFTLAND FF  </title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -156,10 +156,11 @@
                         <div class="progress-bar-bg"><div class="progress-fill" id="bar-${index}"></div></div>
                     </div>
 
+                    ${app.code ? `
                     <div class="cod-container">
-                        <span>COD : ${app.code ? app.code : ''}</span>
-                        <img src="${originalCopyIcon}" class="copy-btn" id="copy-icon-${index}" onclick="copyToClipboard('${app.code || ''}',${index})">
-                    </div>
+                        <span id="cod-text-${index}" style="filter: blur(5px); user-select: none; transition: filter 0.3s;" onmouseover="this.style.filter='none'" onmouseout="this.style.filter='blur(5px)'">COD : ${app.code}</span>
+                        <img src="${originalCopyIcon}" class="copy-btn" id="copy-icon-${index}" onclick="copyToClipboard('${app.code}',${index})">
+                    </div>` : ''}
                 </div>`;
             });
         }
@@ -173,12 +174,21 @@
         function copyToClipboard(text, index) {
             navigator.clipboard.writeText(text).then(() => {
                 const iconElement = document.getElementById(`copy-icon-${index}`);
+                const codSpan = document.getElementById(`cod-text-${index}`);
                 
+                // إظهار الكود عند النسخ
+                if (codSpan) {
+                    codSpan.style.filter = 'none';
+                }
+
                 // تغيير الأيقونة مؤقتاً إلى علامة صح
                 if (iconElement) {
                     iconElement.src = checkCopyIcon;
                     setTimeout(() => {
                         iconElement.src = originalCopyIcon;
+                        if (codSpan) {
+                            codSpan.style.filter = 'blur(5px)';
+                        }
                     }, 2000);
                 }
 
