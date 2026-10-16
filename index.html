@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAFTLAND ff  </title>
+    <title>CRAFTLAND FF  </title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,12 +25,7 @@
         header h1 { font-size: 1rem; letter-spacing: 1px; color: #fff; font-weight: bold; display: flex; align-items: center; gap: 8px; }
         header h1 img { width: 19px; height: 19px; object-fit: contain; }
         .controls { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
-        
-        .search-box-wrapper { position: relative; width: 100%; margin-bottom: 15px; }
-        #search-input { width: 100%; padding: 10px 40px 10px 10px; border-radius: 10px; border: 1px solid #333; background: #111; color: #fff; }
-        .voice-search-btn { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
-        .voice-search-btn img { width: 20px; height: 20px; object-fit: contain; filter: invert(1); transition: 0.2s; }
-        .voice-search-btn.listening img { filter: drop-shadow(0 0 5px #ff4500); transform: translateY(-50%) scale(1.1); }
+        #search-input { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #333; background: #111; color: #fff; margin-bottom: 15px; }
         
         /* تصميم أزرار التصنيفات (Tabs) */
         .categories-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
@@ -102,12 +97,7 @@
     </header>
 
     <div class="controls">
-        <div class="search-box-wrapper">
-            <input type="text" id="search-input" placeholder="ابحث عن خريطة أو تصميم كرافتلاند..." onkeyup="filterContent()">
-            <button class="voice-search-btn" id="voice-btn" onclick="toggleVoiceSearch()" title="البحث الصوتي">
-                <img src="https://images.icon-icons.com/868/PNG/512/microphone_retro_icon-icons.com_67975.png" alt="Voice Search">
-            </button>
-        </div>
+        <input type="text" id="search-input" placeholder="ابحث عن خريطة أو تصميم كرافتلاند..." onkeyup="filterContent()">
         
         <!-- أزرار التصنيفات (Tabs) -->
         <div class="categories-tabs">
@@ -280,36 +270,7 @@
                 body: JSON.stringify(currentCount)
             }).catch(err => console.error(err));
         }
-
-        function toggleVoiceSearch() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) {
-                alert("متصفحك لا يدعم خاصية البحث الصوتي.");
-                return;
-            }
-
-            const recognition = new SpeechRecognition();
-            recognition.lang = 'ar-SA';
-            recognition.interimResults = false;
-            recognition.maxAlternatives = 1;
-
-            const voiceBtn = document.getElementById('voice-btn');
-            const searchInput = document.getElementById('search-input');
-
-            recognition.onstart = function() {
-                voiceBtn.classList.add('listening');
-            };
-
-            recognition.onresult = function(event) {
-                const speechResult = event.results[0][0].transcript;
-                searchInput.value = speechResult;
-                filterContent();
-            };
-
-            recognition.onerror = function() {
-                voiceBtn.classList.remove('listening');
-            };
-
-            recognition.onend = function() {
-
-                                                                                                   
+    </script>
+</body>
+    </html>
+    
